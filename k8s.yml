@@ -1,17 +1,31 @@
 ---
-- name: kubernetes and docker installation
+- name: kubernetes and docker installation in slaves
   hosts: localhost
   vars:
     - kubernetes_roles: master
-  roles:
-    - geerlingguy.docker
-    - geerlingguy.kubernetes 
+  tasks:
+    - package:
+        name: '*'
+        state: latest
+    - shell:
+        cmd: apt-get update -y
+    - include_role:
+        name: geerlingguy.docker
+    - include_role:
+        name: geerlingguy.kubernetes
 
 - name: kubernetes and docker installation in slaves
   hosts: all
   vars:
     - kubernetes_roles: node
-  roles:
-    - geerlingguy.docker
-    - geerlingguy.kubernetes 
+  tasks:
+    - package:
+        name: '*'
+        state: latest
+    - shell:
+        cmd: apt-get update -y
+    - include_role:
+        name: geerlingguy.docker
+    - include_role:
+        name: geerlingguy.kubernetes
 
