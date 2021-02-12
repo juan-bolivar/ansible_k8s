@@ -1,18 +1,19 @@
 ---
-- name: kubernetes and docker installation in slaves
+- name: kubernetes and docker installation
   hosts: localhost
   vars:
     - kubernetes_roles: master
   tasks:
-    - package:
-        name: '*'
-        state: latest
     - shell:
         cmd: apt-get update -y
     - include_role:
         name: geerlingguy.docker
     - include_role:
         name: geerlingguy.kubernetes
+    - shell:
+        cmd: kubeadm token create --print-join-command
+      register: registro
+
 
 - name: kubernetes and docker installation in slaves
   hosts: all
@@ -29,3 +30,5 @@
     - include_role:
         name: geerlingguy.kubernetes
 
+    - shell:
+        cmd: echo {{ registro }} | bash
