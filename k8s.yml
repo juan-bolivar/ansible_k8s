@@ -1,0 +1,17 @@
+---
+- name: kubernetes and docker installation
+  hosts: localhost
+  vars:
+    - kubernetes_roles: master
+  roles:
+    - geerlingguy.docker
+    - geerlingguy.kubernetes 
+
+- name: kubernetes and docker installation in slaves
+  hosts: all
+  vars:
+    - kubernetes_roles: node
+  roles:
+    - geerlingguy.docker
+    - geerlingguy.kubernetes 
+
