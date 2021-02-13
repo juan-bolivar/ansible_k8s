@@ -10,7 +10,17 @@
         name: geerlingguy.docker
     - include_role:
         name: geerlingguy.kubernetes
-
+    - package:
+        name: 'bash-completion'
+        state: present
+    - name: configuration
+      copy:
+        src:   /etc/kubernetes/admin.conf
+        dest:  {{ lookup('env', 'HOME') }}/.kube
+        owner: {{ lookup('env','USR') }}
+        group: {{ lookup('env','USR') }}
+   
+  
 - name: kubernetes and docker installation
   hosts: all
   vars:
@@ -22,3 +32,4 @@
         name: geerlingguy.docker
     - include_role:
         name: geerlingguy.kubernetes
+        
