@@ -37,4 +37,3 @@
         name: geerlingguy.docker
     - include_role:
         name: geerlingguy.kubernetes
-
