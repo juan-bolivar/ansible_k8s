@@ -17,8 +17,6 @@
       copy:
         src:   /etc/kubernetes/admin.conf
         dest:  {{ lookup('env', 'HOME') }}/.kube
-        owner: {{ lookup('env','USR') }}
-        group: {{ lookup('env','USR') }}
         
     - name: bash completion
       shell:
