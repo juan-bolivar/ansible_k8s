@@ -16,15 +16,16 @@
     - name: configuration
       copy:
         src:   /etc/kubernetes/admin.conf
-        dest:  {{ lookup('env', 'HOME') }}/.kube
-        
+        dest:  "{{ lookup('env', 'HOME')}}/.kube"
+        mode: "0644"
+
     - name: bash completion
       shell:
-        cmd: cd /etc/bash_completion.d/ ; kubectl completion bash
-        
-       
-   
-  
+        cmd:  kubectl completion bash > /etc/bash_completion.d/kubectl
+
+
+
+
 - name: kubernetes and docker installation
   hosts: all
   vars:
@@ -36,4 +37,4 @@
         name: geerlingguy.docker
     - include_role:
         name: geerlingguy.kubernetes
-        
+
