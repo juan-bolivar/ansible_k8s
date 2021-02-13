@@ -21,7 +21,7 @@
 
     - name: bash completion
       shell:
-        cmd:  kubectl completion bash > /etc/bash_completion.d/kubectl
+        cmd:  kubectl completion bash > /etc/bash_completion.d/kubectl ; bash -l
 
 
 
