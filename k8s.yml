@@ -2,7 +2,7 @@
 - name: kubernetes and docker installation
   hosts: localhost
   vars:
-    - kubernetes_roles: master
+    - kubernetes_role: master
   tasks:
     - shell:
         cmd: apt-get update -y
@@ -10,24 +10,15 @@
         name: geerlingguy.docker
     - include_role:
         name: geerlingguy.kubernetes
-    - shell:
-        cmd: kubeadm token create --print-join-command 2>/dev/null
-      register: registro
 
-
-- name: kubernetes and docker installation in slaves
+- name: kubernetes and docker installation
   hosts: all
   vars:
-    - kubernetes_roles: node
+    - kubernetes_role: node
   tasks:
-    - package:
-        name: '*'
-        state: latest
     - shell:
         cmd: apt-get update -y
     - include_role:
         name: geerlingguy.docker
     - include_role:
         name: geerlingguy.kubernetes
-    - shell:
-        cmd: "{{ hostvars['localhost']['registro']['stdout'] }}"
