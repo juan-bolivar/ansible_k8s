@@ -19,6 +19,12 @@
         dest:  {{ lookup('env', 'HOME') }}/.kube
         owner: {{ lookup('env','USR') }}
         group: {{ lookup('env','USR') }}
+        
+    - name: bash completion
+      shell:
+        cmd: cd /etc/bash_completion.d/ ; kubectl completion bash
+        
+       
    
   
 - name: kubernetes and docker installation
