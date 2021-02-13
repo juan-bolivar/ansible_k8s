@@ -11,7 +11,7 @@
     - include_role:
         name: geerlingguy.kubernetes
     - shell:
-        cmd: kubeadm token create --print-join-command
+        cmd: kubeadm token create --print-join-command 2>/dev/null
       register: registro
 
 
@@ -29,6 +29,5 @@
         name: geerlingguy.docker
     - include_role:
         name: geerlingguy.kubernetes
-
     - shell:
-        cmd: echo {{ registro }} | bash
+        cmd: "{{ hostvars['localhost']['registro']['stdout'] }}"
