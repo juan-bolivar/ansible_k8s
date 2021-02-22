@@ -2,6 +2,6 @@
 
 ## Installation
 
-run 
 
-sudo bash scrip.sh
+
+**sudo bash scrip.sh**
